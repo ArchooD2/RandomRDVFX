@@ -83,7 +83,7 @@ def index():
     if request.method == "POST":
         # 1) read uploaded file
         f = request.files["levelfile"]
-        raw = f.read().decode("utf-8")
+        raw = f.read().decode("utf-8-sig")  # handle BOM if present
         cleaned = re.sub(r",\s*([\]}])", r"\1", raw)
         lvl = json.loads(cleaned)
 
