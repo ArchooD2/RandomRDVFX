@@ -70,9 +70,9 @@ def generate_vfx_presets(amount, rooms, bar, beat, blacklist):
             elif k == "threshold":
                 entry[k] = round(random.uniform(0, 1), 2)
             elif k in ("intensity", "speedPerc"):
-                entry[k] = random.randint(0, 200)
+                entry[k] = random.randint(-200, 200)
             elif k in ("floatX", "floatY"):
-                entry[k] = round(random.uniform(0, 5), 2)
+                entry[k] = round(random.uniform(-500, 500), 2)
         out.append(entry)
     return out
 
