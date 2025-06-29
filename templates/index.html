@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>VFX Preset Injector</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Inject VFX Presets</h1>
+  <form method="post" enctype="multipart/form-data">
+    <label>Level file (.rdlevel):
+      <input type="file" name="levelfile" required>
+    </label><br><br>
+
+    <label>Amount:
+      <input type="number" name="amount" value="20" required>
+    </label><br>
+
+    <label>Rooms:</label>
+    <div id="room-buttons">
+      <!-- each button toggles one room index -->
+      <button type="button" data-room="0">0</button>
+      <button type="button" data-room="1">1</button>
+      <button type="button" data-room="2">2</button>
+      <button type="button" data-room="3">3</button>
+    </div>
+    <!-- this hidden field is what Flask will read as request.form['rooms'] -->
+    <input type="hidden" id="rooms" name="rooms" value=""><br>
+
+    <label>Bar:
+      <input type="number" name="bar" value="1" required>
+    </label><br>
+    <label>Beat:
+      <input type="text" name="beat" value="1.0" required>
+    </label><br>
+    <label>Blacklist (comma-sep):
+      <input type="text" name="blacklist" value="Noise,GlitchObstruction">
+    </label><br><br>
+
+    <button type="submit">Generate &amp; Download</button>
+  </form>
+
+  <script>
+    // keep an array of the selected room‐indices
+    const selectedRooms = [];
+
+    function selectRoom(i) {
+      const idx = selectedRooms.indexOf(i);
+      const btn = document.querySelector('#room-buttons button[data-room="'+i+'"]');
+      if (idx === -1) {
+        selectedRooms.push(i);
+        btn.classList.add('selected');
+      } else {
+        selectedRooms.splice(idx, 1);
+        btn.classList.remove('selected');
+      }
+      // update the hidden input
+      document.getElementById('rooms').value = selectedRooms.join(',');
+    }
+
+      // create a new button
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = newRoom;
+      btn.setAttribute('data-room', newRoom);
+      btn.onclick = () => selectRoom(newRoom);
+
+      document.getElementById('room-buttons').appendChild(btn);
+    }
+
+    // wire up existing buttons on load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('#room-buttons button').forEach(btn => {
+        const i = parseInt(btn.dataset.room, 10);
+        btn.onclick = () => selectRoom(i);
+      });
+      // initialize the hidden input (empty = none selected)
+      document.getElementById('rooms').value = '';
+    });
+  </script>
+</body>
+</html>
