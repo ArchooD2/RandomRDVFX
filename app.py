@@ -21,8 +21,28 @@ PRESETS = [
 ]
 
 EXTRA_FIELDS = {
-    "WavyRows":    {"intensity": 100, "speedPerc": 100},
-    # add other preset‐specific extras here
+    "WavyRows":           {"intensity": 100, "speedPerc": 100},
+    "HueShift":           {"intensity": 100},
+    "Brightness":         {"intensity": 100},
+    "Contrast":           {"intensity": 100},
+    "Saturation":         {"intensity": 100},
+    "Rain":               {"intensity": 100},
+    "Bloom":              {"threshold": 0.3, "intensity": 5, "color": "FFFFFF"},
+    "TileN":              {"floatX": 1, "floatY": 1},
+    "CustomScreenScroll": {"floatX": 1, "floatY": 1},
+    "JPEG":               {"intensity": 5},
+    "Mosaic":             {"intensity": 5},
+    "ScreenWaves":        {"intensity": 5},
+    "Grain":              {"intensity": 5},
+    "Blizzard":           {"intensity": 5},
+    "Drawing":            {"intensity": 5},
+    "Aberration":         {"intensity": 5},
+    "Blur":               {"intensity": 5},
+    "RadialBlur":         {"intensity": 5},
+    "Fisheye":            {"intensity": 5},
+    "Dots":               {"intensity": 5},
+    "Diamonds":           {"intensity": 5, "color": "FFFFFF"},
+    "Tutorial":           {"intensity": 5, "color": "FFFFFF"},
 }
 
 def random_hex_color() -> str:
