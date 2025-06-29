@@ -1,4 +1,4 @@
-/* styles.css */
+/* styles.css – Dark Mode */
 
 /* Reset & Base */
 * {
@@ -9,8 +9,8 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: #121212;
+  color: #e0e0e0;
   line-height: 1.5;
   padding: 20px;
 }
@@ -19,16 +19,16 @@ body {
 h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #343a40;
+  color: #ffffff;
 }
 
 /* Form Container */
 form {
-  background: #fff;
+  background: #1e1e1e;
   max-width: 600px;
   padding: 1.5rem;
   border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 
 /* Labels & Inputs */
@@ -36,6 +36,7 @@ label {
   display: block;
   font-weight: bold;
   margin-top: 1rem;
+  color: #cccccc;
 }
 
 input[type="file"],
@@ -44,9 +45,15 @@ input[type="text"] {
   width: 100%;
   padding: 0.5rem;
   margin-top: 0.4rem;
-  border: 1px solid #ced4da;
+  border: 1px solid #444;
   border-radius: 4px;
   font-size: 1rem;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+input::placeholder {
+  color: #888;
 }
 
 /* Room Buttons */
@@ -58,21 +65,21 @@ input[type="text"] {
 #room-buttons button {
   margin: 0 0.3rem 0.5rem 0;
   padding: 0.5rem 0.8rem;
-  border: 1px solid #007BFF;
-  background-color: #fff;
-  color: #007BFF;
+  border: 1px solid #4dabf7;
+  background-color: #2a2a2a;
+  color: #4dabf7;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
 }
 
 #room-buttons button:hover {
-  background-color: #e9f5ff;
+  background-color: #333333;
 }
 
 #room-buttons button.selected {
-  background-color: #007BFF;
-  color: #fff;
+  background-color: #4dabf7;
+  color: #ffffff;
 }
 
 /* Hide the actual hidden field */
@@ -86,7 +93,7 @@ button[type="submit"] {
   margin-top: 1.5rem;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  color: #fff;
+  color: #ffffff;
   background-color: #28a745;
   border: none;
   border-radius: 4px;

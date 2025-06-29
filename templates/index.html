@@ -14,25 +14,24 @@
 
     <label>Amount:
       <input type="number" name="amount" value="20" required>
-    </label><br>
+    </label><br><br>
 
     <label>Rooms:</label>
     <div id="room-buttons">
-      <!-- each button toggles one room index -->
-      <button type="button" data-room="0">0</button>
-      <button type="button" data-room="1">1</button>
-      <button type="button" data-room="2">2</button>
-      <button type="button" data-room="3">3</button>
+      {% for i in range(4) %}
+        <button type="button" data-room="{{ i }}">{{ i }}</button>
+      {% endfor %}
     </div>
-    <!-- this hidden field is what Flask will read as request.form['rooms'] -->
-    <input type="hidden" id="rooms" name="rooms" value=""><br>
+    <input type="hidden" id="rooms" name="rooms" value=""><br><br>
 
     <label>Bar:
       <input type="number" name="bar" value="1" required>
-    </label><br>
+    </label><br><br>
+
     <label>Beat:
       <input type="text" name="beat" value="1.0" required>
-    </label><br>
+    </label><br><br>
+
     <label>Blacklist (comma-sep):
       <input type="text" name="blacklist" value="Noise,GlitchObstruction">
     </label><br><br>
@@ -41,12 +40,13 @@
   </form>
 
   <script>
-    // keep an array of the selected room‐indices
     const selectedRooms = [];
 
     function selectRoom(i) {
       const idx = selectedRooms.indexOf(i);
-      const btn = document.querySelector('#room-buttons button[data-room="'+i+'"]');
+      const btn = document.querySelector(
+        `#room-buttons button[data-room="${i}"]`
+      );
       if (idx === -1) {
         selectedRooms.push(i);
         btn.classList.add('selected');
@@ -54,27 +54,15 @@
         selectedRooms.splice(idx, 1);
         btn.classList.remove('selected');
       }
-      // update the hidden input
       document.getElementById('rooms').value = selectedRooms.join(',');
     }
 
-      // create a new button
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = newRoom;
-      btn.setAttribute('data-room', newRoom);
-      btn.onclick = () => selectRoom(newRoom);
-
-      document.getElementById('room-buttons').appendChild(btn);
-    }
-
-    // wire up existing buttons on load
     document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('#room-buttons button').forEach(btn => {
-        const i = parseInt(btn.dataset.room, 10);
-        btn.onclick = () => selectRoom(i);
-      });
-      // initialize the hidden input (empty = none selected)
+      document.querySelectorAll('#room-buttons button')
+        .forEach(btn => {
+          const i = Number(btn.dataset.room);
+          btn.addEventListener('click', () => selectRoom(i));
+        });
       document.getElementById('rooms').value = '';
     });
   </script>

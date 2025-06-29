@@ -5,11 +5,24 @@ import re
 from flask import Flask, render_template, request, send_file
 
 PRESETS = [
-    "SilhouettesOnHBeat", "Vignette", "VignetteFlicker", # …etc
+    "SilhouettesOnHBeat", "Vignette", "VignetteFlicker",
+    "ColourfulShockwaves", "BassDropOnHit", "ShakeOnHeartBeat",
+    "ShakeOnHit", "WavyRows", "LightStripVert", "VHS",
+    "CutsceneMode", "HueShift", "Brightness", "Contrast",
+    "Saturation", "GlitchObstruction", "Noise", "Rain",
+    "Matrix", "Confetti", "FallingPetals", "FallingPetalsInstant",
+    "FallingPetalsSnow", "Snow", "Bloom", "OrangeBloom",
+    "BlueBloom", "HallOfMirrors", "TileN", "Sepia",
+    "CustomScreenScroll", "JPEG", "NumbersAbovePulses",
+    "Mosaic", "ScreenWaves", "Funk", "Grain", "Blizzard",
+    "Drawing", "Aberration", "Blur", "RadialBlur",
+    "Fisheye", "Dots", "Diamonds", "Balloons",
+    "Tutorial", "DisableAll"
 ]
+
 EXTRA_FIELDS = {
-    "WavyRows":           {"intensity": 100, "speedPerc": 100},
-    # …etc
+    "WavyRows":    {"intensity": 100, "speedPerc": 100},
+    # add other preset‐specific extras here
 }
 
 def random_hex_color() -> str:
@@ -31,7 +44,7 @@ def generate_vfx_presets(amount, rooms, bar, beat, blacklist):
             "ease":     "Linear",
         }
         extras = EXTRA_FIELDS.get(p, {})
-        for k,v in extras.items():
+        for k, v in extras.items():
             if k == "color":
                 entry[k] = random_hex_color()
             elif k == "threshold":
@@ -56,10 +69,13 @@ def index():
 
         # 2) parse form inputs
         amount    = int(request.form["amount"])
-        rooms     = list(map(int, request.form["rooms"].split(",")))
+        rooms_raw = request.form.get("rooms", "")
+        rooms     = [int(r) for r in rooms_raw.split(",") if r]
         bar       = int(request.form["bar"])
         beat      = float(request.form["beat"])
-        blacklist = [s.strip() for s in request.form["blacklist"].split(",") if s.strip()]
+        blacklist = [
+            s.strip() for s in request.form["blacklist"].split(",") if s.strip()
+        ]
 
         # 3) generate & inject
         vfx = generate_vfx_presets(amount, rooms, bar, beat, blacklist)
